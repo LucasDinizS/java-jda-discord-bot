@@ -1,6 +1,7 @@
 package Listeners;
 
 import ComandosBase.LimparChat;
+import ComandosBase.ReplyQuestion;
 import Lava_Player.PlayerManager;
 import ComandosBase.Musica;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -37,6 +38,9 @@ public class SlashCommands extends ListenerAdapter {
             case "limpar" :
                 LimparChat.clearMessages(event);
                 break;
+            case "xandao":
+                ReplyQuestion.Responder(event);
+                break;
         }
         }
 
@@ -46,6 +50,7 @@ public class SlashCommands extends ListenerAdapter {
             commandData.add(Commands.slash("ship", "shipe dois nomes ou dois usuários").addOption(OptionType.STRING, "user1", "primeiro usuário do ship", true).addOption(OptionType.STRING, "user2", "segundo usuário do ship", true));
             commandData.add(Commands.slash("play", "tocar música").addOption(OptionType.STRING,"nomeoulink","coloque o nome da música ou o link do youtube para buscar",true));
             commandData.add(Commands.slash("limpar", "limpa as mensagens pro chat (somente adms)").addOption(OptionType.INTEGER,"quantidade","quantidade de mensagens para serem limpadas",true));
+            commandData.add(Commands.slash("xandao","Faça uma pergunta para o bot responder").addOption(OptionType.STRING,"pergunta","Qual a sua pergunta?",true));
             commandData.add(Commands.slash("skip","pular música"));
             event.getGuild().updateCommands().addCommands(commandData).queue();
         }
