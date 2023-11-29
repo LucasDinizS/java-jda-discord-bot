@@ -1,4 +1,4 @@
-package ComandosBase;
+package Listeners;
 
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;

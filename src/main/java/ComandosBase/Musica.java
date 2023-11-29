@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import java.net.URL;
 
 
-public class TocarMusica {
+public class Musica {
     public static void play(SlashCommandInteractionEvent event){
         if (!event.getMember().getVoiceState().inAudioChannel()) {
             event.reply("Você precisa estar em um canal de voz pra eu funcionar, SEU ANIMAL").queue();
