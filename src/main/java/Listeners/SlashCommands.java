@@ -2,6 +2,7 @@ package Listeners;
 
 import ComandosBase.LimparChat;
 import ComandosBase.ReplyQuestion;
+import ComandosBase.Roleplay;
 import Lava_Player.PlayerManager;
 import ComandosBase.Musica;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -41,6 +43,9 @@ public class SlashCommands extends ListenerAdapter {
             case "xandao":
                 ReplyQuestion.Responder(event);
                 break;
+            case "abraco":
+                Roleplay.abraco(event);
+                break;
         }
         }
 
@@ -52,6 +57,7 @@ public class SlashCommands extends ListenerAdapter {
             commandData.add(Commands.slash("limpar", "limpa as mensagens pro chat (somente adms)").addOption(OptionType.INTEGER,"quantidade","quantidade de mensagens para serem limpadas",true));
             commandData.add(Commands.slash("xandao","Faça uma pergunta para o bot responder").addOption(OptionType.STRING,"pergunta","Qual a sua pergunta?",true));
             commandData.add(Commands.slash("skip","pular música"));
+            commandData.add(Commands.slash("abraco","abrace um amigo").addOption(OptionType.STRING,"amigo","Adicione o amigo no qual você quer abraçar",true));
             event.getGuild().updateCommands().addCommands(commandData).queue();
         }
 
