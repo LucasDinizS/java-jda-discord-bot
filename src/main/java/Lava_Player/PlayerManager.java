@@ -32,8 +32,19 @@ public class PlayerManager {
     return musicManager;
     });
 }
+
+public void pause(SlashCommandInteractionEvent event){
+    final Music_Manager musicManager = this.getMusicManager(event.getGuild());
+    musicManager.scheduler.audioPlayer.setPaused(true);
+    event.reply("Música pausada").queue();
+}
+public void resume(SlashCommandInteractionEvent event){
+    final Music_Manager musicManager = this.getMusicManager(event.getGuild());
+    musicManager.scheduler.audioPlayer.setPaused(false);
+    event.reply("Música saiu do pause").queue();
+}
 public void loadAndPlayer(SlashCommandInteractionEvent event, String trackURL){
-        final Music_Manager musicManager = this.getMusicManager(event.getGuild());
+    final Music_Manager musicManager = this.getMusicManager(event.getGuild());
         this.audioPlayerManager.loadItemOrdered(musicManager, trackURL, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack audioTrack) {

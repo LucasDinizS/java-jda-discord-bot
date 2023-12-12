@@ -28,9 +28,14 @@ public class Musica {
                 music = "ytsearch:" + nome + "audio";
             }
             PlayerManager.getINSTANCE().loadAndPlayer(event, music);
-            event.reply("Adicionando a música");
     }
 
+    public static void pause(SlashCommandInteractionEvent event){
+        PlayerManager.getINSTANCE().pause(event);
+    }
+    public static void resume(SlashCommandInteractionEvent event){
+        PlayerManager.getINSTANCE().resume(event);
+    }
     public static boolean isURL(String url){
         try {
             new URL(url).toURI();

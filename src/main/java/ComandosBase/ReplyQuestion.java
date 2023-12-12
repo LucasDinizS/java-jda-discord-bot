@@ -14,6 +14,6 @@ public class ReplyQuestion {
                 "Eu acho que não",
                 "Eu não sei"
         };
-        event.reply("\""+event.getOption("pergunta").getName()+"\"\n"+respostas[rand.nextInt(respostas.length)]).queue();
+        event.reply("\""+event.getOption("pergunta").getAsString()+"\"\n"+respostas[rand.nextInt(respostas.length)]).queue();
     }
 }
