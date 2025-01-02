@@ -48,6 +48,9 @@ public class SlashCommands extends ListenerAdapter {
             case "resume":
                 Musica.resume(event);
                 break;
+            case "trabalhar":
+                Economia.Eventos.ganharDinheiro(event);
+                break;
         }
         }
 
@@ -62,6 +65,7 @@ public class SlashCommands extends ListenerAdapter {
             commandData.add(Commands.slash("abraço","Abrace um amigo").addOption(OptionType.STRING,"amigo","O amigo no qual você quer abraçar",true));
             commandData.add(Commands.slash("pause","Pausar a música atual"));
             commandData.add(Commands.slash("resume","A música volta a tocar"));
+            commandData.add(Commands.slash("trabalhar","Trabalhe para ganhar dinheiro"));
             event.getGuild().updateCommands().addCommands(commandData).queue();
         }
 
