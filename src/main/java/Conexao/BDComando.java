@@ -31,7 +31,7 @@ public class BDComando {
                 stmt.executeUpdate();
             }
     }
-    public static int ganharDinheiro(String userID, int ganho) throws SQLException {
+    public static String ganharDinheiro(String userID, int ganho) throws SQLException {
         String sql = "SELECT * FROM usuarios WHERE id = ?";
         LocalDateTime horarioEvento = null;
         LocalDateTime horarioAtual = null;
@@ -64,7 +64,7 @@ public class BDComando {
 
                                 int linhasAfetadas = stmt2.executeUpdate();
                                 if (linhasAfetadas > 0) {
-                                    return -1;
+                                    return "Parabéns, você ganhou "+ganho+" Super Coins e agora você possui no total "+dinheiroNovo+" Super Coins";
                                 }
                             }
                         }
@@ -75,9 +75,12 @@ public class BDComando {
             e.printStackTrace();
             throw e;
         }
-        long minutosRestantes = ChronoUnit.MINUTES.between(horarioAtual, horarioEvento);
-        return (int) Math.ceil(minutosRestantes);
-
+        if (horarioAtual == null || horarioEvento == null) {
+            return "Erro ao calcular o tempo restante. Por favor, tente novamente.";
+        }else {
+            long minutosRestantes = ChronoUnit.MINUTES.between(horarioAtual, horarioEvento);
+            return "Você só poderá trabalhar de novo daqui a "+(int) Math.ceil(minutosRestantes)+" minutos";
+        }
     }
 
 }

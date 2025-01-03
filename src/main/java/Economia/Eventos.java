@@ -15,12 +15,7 @@ public class Eventos {
             }
             Random rand = new Random();
             int ganho = rand.nextInt(10,20);
-                int retorno = BDComando.ganharDinheiro(idUser,ganho);
-                if (retorno == -1){
-                    event.reply("Parabéns, você ganhou "+ganho+" Super Coins e só podera trabalhar de novo daqui a 10 minutos").queue();
-                }else {
-                    event.reply("Você só poderá trabalhar de novo daqui a "+retorno+" minutos").queue();
-                }
+                    event.reply(BDComando.ganharDinheiro(idUser,ganho)).queue();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
