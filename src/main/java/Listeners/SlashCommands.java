@@ -51,6 +51,9 @@ public class SlashCommands extends ListenerAdapter {
             case "trabalhar":
                 Economia.Eventos.ganharDinheiro(event);
                 break;
+            case "ranking":
+                Economia.Eventos.rankingDinheiro(event);
+                break;
         }
         }
 
@@ -66,6 +69,7 @@ public class SlashCommands extends ListenerAdapter {
             commandData.add(Commands.slash("pause","Pausar a música atual"));
             commandData.add(Commands.slash("resume","A música volta a tocar"));
             commandData.add(Commands.slash("trabalhar","Trabalhe para ganhar dinheiro"));
+            commandData.add(Commands.slash("ranking","O rank de mais ricos do bot"));
             event.getGuild().updateCommands().addCommands(commandData).queue();
         }
 

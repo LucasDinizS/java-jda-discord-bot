@@ -23,9 +23,8 @@ public class Musica {
             if (isURL(link)) {
                 music = link;
             } else {
-                String nome = "";
-                    nome += event.getOption("nomeoulink").getAsString();
-                music = "ytsearch:" + nome + "audio";
+                String nome = event.getOption("nomeoulink").getAsString();
+                music = "ytsearch:" + nome;
             }
             PlayerManager.getINSTANCE().loadAndPlayer(event, music);
     }

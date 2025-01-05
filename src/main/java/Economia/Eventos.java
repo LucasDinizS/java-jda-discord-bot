@@ -18,7 +18,10 @@ public class Eventos {
                     event.reply(BDComando.ganharDinheiro(idUser,ganho)).queue();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            event.reply("Ocorreu um erro ao se conectar com o Banco de Dados").queue();
         }
+    }
+    public static void rankingDinheiro(SlashCommandInteractionEvent event){
+            event.reply(BDComando.Ranking(event.getJDA())).queue();
     }
 }

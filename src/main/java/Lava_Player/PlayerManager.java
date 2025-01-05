@@ -54,22 +54,27 @@ public void loadAndPlayer(SlashCommandInteractionEvent event, String trackURL){
 
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
-                  final List<AudioTrack> tracks = audioPlaylist.getTracks();
-                    if(!tracks.isEmpty()){
-                        musicManager.scheduler.queue(tracks.get(0));
-                        String nome = tracks.get(0).getInfo().title;
-                        event.reply("Adicionando a música "+nome+" pra playlist").queue();
-                    }
+                if (audioPlaylist.isSearchResult()) {
+                    AudioTrack track = audioPlaylist.getTracks().get(0);
+                    musicManager.scheduler.queue(track);
+                    event.reply("Adicionando a música da busca: " + track.getInfo().title).queue();
+                } else {
+                    event.reply("Adicionando playlist: " + audioPlaylist.getName()).queue();
+                    audioPlaylist.getTracks().forEach(musicManager.scheduler::queue);
+                }
             }
 
             @Override
             public void noMatches() {
-
+                System.out.println("No matches found for: " + trackURL);
+                event.reply("Nenhuma música encontrada para: " + trackURL).queue();
             }
 
             @Override
             public void loadFailed(FriendlyException e) {
-
+                System.err.println("Load failed: " + e.getMessage());
+                e.printStackTrace();
+                event.reply("Erro ao carregar a música: " + e.getMessage()).queue();
             }
         });
 
