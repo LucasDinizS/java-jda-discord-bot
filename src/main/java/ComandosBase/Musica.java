@@ -24,7 +24,7 @@ public class Musica {
                 music = link;
             } else {
                 String nome = event.getOption("nomeoulink").getAsString();
-                music = "ytsearch:" + nome;
+                music = "scsearch:" + nome;
             }
             PlayerManager.getINSTANCE().loadAndPlayer(event, music);
     }
