@@ -54,6 +54,9 @@ public class SlashCommands extends ListenerAdapter {
             case "ranking":
                 Economia.Eventos.rankingDinheiro(event);
                 break;
+            case "setvolume":
+                Musica.setVolume(event);
+                break;
         }
         }
 
@@ -70,6 +73,7 @@ public class SlashCommands extends ListenerAdapter {
             commandData.add(Commands.slash("resume","A música volta a tocar"));
             commandData.add(Commands.slash("trabalhar","Trabalhe para ganhar dinheiro"));
             commandData.add(Commands.slash("ranking","O rank de mais ricos do bot"));
+            commandData.add(Commands.slash("setvolume", "Ajustar o volume do bot no servidor (somente adms)").addOption(OptionType.INTEGER,"volume","Define o volume de 1 a 100",true));
             event.getGuild().updateCommands().addCommands(commandData).queue();
         }
 
