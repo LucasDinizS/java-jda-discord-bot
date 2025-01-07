@@ -1,6 +1,7 @@
 package Conexao;
 
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.User;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -91,21 +92,12 @@ public class BDComando {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 int i = 0;
-                while (rs.next() && i <6) {
+                while (rs.next() && i <5) {
                     int dinheiro = rs.getInt("dinheiro");
                     String id = rs.getString("id");
-                    int position = i; // Para uso no lambda
-                    jda.retrieveUserById(id).queue(user -> {
-                        String userName = user.getName();
-                        synchronized (retorno) {
-                            retorno.append(position+1)
-                                    .append(" - ")
-                                    .append(userName)
-                                    .append(" - ")
-                                    .append(dinheiro)
-                                    .append("\n");
-                        }
-                    });
+                    User user = jda.retrieveUserById(id).complete();
+                    String userName = user.getName().toUpperCase();
+                    retorno.append(String.format("%d - %s - %d%n", i + 1, userName, dinheiro));
                     i++;
                 }
                 return "Aqui está os 5 maiores do ranking:\n"+ retorno;
