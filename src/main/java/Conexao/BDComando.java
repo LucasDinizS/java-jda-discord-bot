@@ -1,5 +1,6 @@
 package Conexao;
 
+import Economia.WebhookLog;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 
@@ -7,7 +8,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Random;
 
 public class BDComando {
     public static boolean isNewUser(String userID) throws SQLException {
@@ -67,9 +67,11 @@ public class BDComando {
 
                                 int linhasAfetadas = stmt2.executeUpdate();
                                 if (linhasAfetadas > 0) {
+                                    WebhookLog.sendLog("O usuário de id "+userID+" ganhou "+ganho+" Super Coins");
                                     return "Parabéns, você ganhou "+ganho+" Super Coins e agora você possui no total "+dinheiroNovo+" Super Coins";
                                 }
                             }
+
                         }
                     }
                 }
