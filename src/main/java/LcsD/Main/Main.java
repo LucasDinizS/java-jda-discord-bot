@@ -18,7 +18,7 @@ public class Main {
         config = Dotenv.configure().load();
         String token = config.get("TOKEN");
         //Inicializa o bot
-        JDA jdaBuilder = JDABuilder.createDefault(token)
+         JDA jdaBuilder = JDABuilder.createDefault(token)
                 .setActivity(Activity.playing("Um jogo legal!"))
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_VOICE_STATES)
                 .addEventListeners(new ReadyEventListener(), new SlashCommands())

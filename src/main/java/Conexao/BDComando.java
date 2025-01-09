@@ -1,13 +1,17 @@
 package Conexao;
 
 import Economia.WebhookLog;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 
+import java.awt.*;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Random;
 
 public class BDComando {
     public static boolean isNewUser(String userID) throws SQLException {
@@ -34,8 +38,10 @@ public class BDComando {
                 stmt.executeUpdate();
             }
     }
-    public static String ganharDinheiro(String userID, int ganho) throws SQLException {
+    public static MessageEmbed ganharDinheiro(String userID, int ganho) throws SQLException {
         String sql = "SELECT * FROM usuarios WHERE id = ?";
+        Random rand = new Random();
+        MessageEmbed message;
         LocalDateTime horarioEvento = null;
         LocalDateTime horarioAtual = null;
         try (Connection conn = Conexao.conectar();
@@ -68,7 +74,16 @@ public class BDComando {
                                 int linhasAfetadas = stmt2.executeUpdate();
                                 if (linhasAfetadas > 0) {
                                     WebhookLog.sendLog("O usuário de id "+userID+" ganhou "+ganho+" Super Coins");
-                                    return "Parabéns, você ganhou "+ganho+" Super Coins e agora você possui no total "+dinheiroNovo+" Super Coins";
+                                    String[] gifs = {
+                                            "https://media.tenor.com/Czyk2RxvylUAAAAi/bug-cat-no-work.gif",
+                                    };
+
+                                    EmbedBuilder builder = new EmbedBuilder();
+                                    builder.setColor(Color.BLUE);
+                                    builder.setDescription("Parabéns, você ganhou "+ganho+" Super Coins e agora você possui no total "+dinheiroNovo+" Super Coins");
+                                    builder.setImage(gifs[rand.nextInt(gifs.length)]);
+                                    message = builder.build();
+                                    return message;
                                 }
                             }
 
@@ -81,10 +96,19 @@ public class BDComando {
             throw e;
         }
         if (horarioAtual == null || horarioEvento == null) {
-            return "Erro ao calcular o tempo restante. Por favor, tente novamente.";
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setColor(Color.RED);
+            builder.setDescription("Erro ao calcular o tempo restante. Por favor, tente novamente.");
+            message = builder.build();
+            return message;
         }else {
             long minutosRestantes = ChronoUnit.MINUTES.between(horarioAtual, horarioEvento);
-            return "Você só poderá trabalhar de novo daqui a "+(int) Math.ceil(minutosRestantes)+" minutos";
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.setColor(Color.RED);
+            builder.setImage("https://media1.tenor.com/m/AADVVj127zcAAAAd/milk-and-mocha-milk-and-mocha-bear.gif");
+            builder.setDescription("Você só poderá trabalhar de novo daqui a "+(int) Math.ceil(minutosRestantes)+" minutos");
+            message = builder.build();
+            return message;
         }
     }
     public static String Ranking(JDA jda) {

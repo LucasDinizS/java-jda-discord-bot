@@ -15,8 +15,7 @@ public class Eventos {
             }
             Random rand = new Random();
             int ganho = rand.nextInt(10,20);
-                    event.reply(BDComando.ganharDinheiro(idUser,ganho)).queue();
-
+                    event.reply("").addEmbeds(BDComando.ganharDinheiro(idUser,ganho)).queue();
         } catch (SQLException e) {
             event.reply("Ocorreu um erro ao se conectar com o Banco de Dados").queue();
         }
